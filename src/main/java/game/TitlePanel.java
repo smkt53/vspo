@@ -31,7 +31,7 @@ public class TitlePanel extends JPanel implements MouseListener{
         g.drawString("START", 10, 10);
     }
 
-    public void preaprePanels(){
+    public void preapreComponents(){
         setBounds(0, 0, 1920, 1080);
 
         //テスト実装.
@@ -45,10 +45,12 @@ public class TitlePanel extends JPanel implements MouseListener{
         Image resemas = emas.getImage().getScaledInstance(1920, 1080, Image.SCALE_SMOOTH);
         ImageIcon emass = new ImageIcon(resemas);
 
+        //背景画像を表示
         JLabel titleBackLabel = new JLabel(emass);
         titleBackLabel.setBounds(0, 0, 1920, 1080);
         this.add(titleBackLabel);
 
+        //ラベル４枚の設定
         textlabel1.setOpaque(true);
         textlabel1.setBackground(Color.GRAY);
         textlabel1.setHorizontalAlignment(SwingConstants.CENTER);;
@@ -60,7 +62,6 @@ public class TitlePanel extends JPanel implements MouseListener{
         label1.setBounds(300, 250, 600, 80);
         this.add(label1);
         this.add(textlabel1);
-
 
         textlabel2.setText("CONTINUE");
         textlabel2.setOpaque(true);
@@ -74,7 +75,6 @@ public class TitlePanel extends JPanel implements MouseListener{
         label2.setBounds(300, 400, 600, 80);
         this.add(label2);
         this.add(textlabel2);
-
         
         textlabel3.setText("SETTING");
         textlabel3.setOpaque(true);
@@ -88,7 +88,6 @@ public class TitlePanel extends JPanel implements MouseListener{
         label3.setBounds(300, 550, 600, 80);
         this.add(label3);
         this.add(textlabel3);
-
 
         textlabel4.setText("EXIT");
         textlabel4.setOpaque(true);
@@ -105,25 +104,33 @@ public class TitlePanel extends JPanel implements MouseListener{
     }
 
     @Override
+    //マウスクリック時の処理
     public void mouseClicked(MouseEvent e){
-        if(e.getSource() == textlabel2){
+        if(e.getSource() == textlabel1){
+            //一枚目のラベルをクリックした場合、セーブデータ画面を飛ばし、最初のゲーム画面に遷移
             Main.mainWindow.setFrontScreenAndFocus(Main.Scene.GAME);
         }
-        if(e.getSource() == textlabel4){
-            if(Main.Num.statusNum == 0){
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e1) {
-                    e1.printStackTrace();
-                }
-                System.exit(0);
-            }
+
+        if(e.getSource() == textlabel2){
+            //二枚目のラベルをクリックした場合、セーブデータ画面に遷移（未実装）
+            Main.mainWindow.setFrontScreenAndFocus(Main.Scene.GAME);
         }
+
         if(e.getSource() == textlabel3){
+            //三枚目のラベルをクリックした場合、設定画面に遷移
             Main.str = "TITLE";
             Main.mainWindow.setFrontScreenAndFocus(Main.Scene.SETTING);
         }
-        System.out.println("clicked");
+
+        if(e.getSource() == textlabel4){
+            //四枚目のラベルをクリックした場合、ゲームを終了
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e1) {
+                e1.printStackTrace();
+            }
+            System.exit(0);
+        }
     }
 
     @Override

@@ -5,41 +5,85 @@ import java.awt.*;
 import java.awt.event.*;
 
 
-public class GamePanel extends JPanel implements MouseListener{
-    private JLabel titleLabel;
-    private JLabel testlabel;
+public class GamePanel extends JPanel implements MouseListener, KeyListener{
+    private static final long serialVersionUID = 1L;
+
+    private JLabel menuLabel;
+    private JLabel backLabel;
+
+    //背景画像を取得してサイズを変更
+    ImageIcon backImageBefore = new ImageIcon("./station.png");
+    Image res = backImageBefore.getImage().getScaledInstance(1920, 1080, Image.SCALE_SMOOTH);
+    ImageIcon backImage = new ImageIcon(res);
+
+    //メニューアイコン
+    ImageIcon menuIcon = new ImageIcon("./menu.png");
+
 
     public GamePanel() {
         setLayout(null);
-        setBackground(Color.YELLOW);
+        addKeyListener(this);
+        addMouseListener(this);
     }
 
-    public void prepareComponents() {
-        titleLabel = new JLabel("Game Panel");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
-        titleLabel.setBounds(100, 200, 200, 50);
-        add(titleLabel);
+    //コンポーネントの設定
+    public void prepareComponents(){
+        backLabel = new JLabel();
+        backLabel.setBounds(0, 0, 1920, 1080);
+        backLabel.setIcon(backImage);
+        add(backLabel, Main.indexNum);
 
-        testlabel = new JLabel("test");
-        testlabel.setBounds(100, 300, 200, 100);
-        testlabel.setOpaque(true);
-        testlabel.setHorizontalAlignment(SwingConstants.CENTER);
-        testlabel.setBackground(Color.WHITE);
-        add(testlabel);
-        testlabel.addMouseListener(this);
+        menuLabel = new JLabel();
+        menuLabel.setBounds(1820, 40, 50, 50);
+        menuLabel.setOpaque(true);
+        menuLabel.setBackground(new Color(0, 0, 0, 0));
+        menuLabel.setIcon(menuIcon);
+        add(menuLabel, Main.indexNum);
+        menuLabel.addMouseListener(this);
+        
+        Main.mainWindow.gameTextPanel.setBounds(100, 700, 1720, 340);
+        add(Main.mainWindow.gameTextPanel, Main.indexNum);
+
+        add(Main.mainWindow.menuPanel, Main.indexNum);
+        Main.mainWindow.menuPanel.setVisible(false);
+    }
+
+    //メニューアクションが発生したらメニューパネルを表示する, 最初は非表示で配置してある
+    public void menuAction() {
+        System.out.println("menuAction");
+        try {
+            Thread.sleep(150);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Main.mainWindow.menuPanel.setVisible(!Main.mainWindow.menuPanel.isVisible());
     }
 
     @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        g.setColor(Color.RED);
+    public void keyPressed(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            //ESCキーが押されたらメニューアクションを実行
+            menuAction();
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if(e.getSource() == testlabel) {
-            Main.str = "GAME";
-            Main.mainWindow.setFrontScreenAndFocus(Main.Scene.SETTING);
+        if(e.getSource() == menuLabel){
+            //メニューアイコンがクリックされたらメニューアクションを実行
+            menuAction();
+        }else{
+
         }
     }
 
@@ -60,6 +104,11 @@ public class GamePanel extends JPanel implements MouseListener{
 
     @Override
     public void mouseExited(MouseEvent e) {
+
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
 
     }
 }
