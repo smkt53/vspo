@@ -42,7 +42,6 @@ public class MainWindow extends JFrame{
 
     //各パネルを作成し、追加
     public void preparePanels(){
-        data = new Data();
         titlePanel = new TitlePanel();
         settingPanel = new SettingPanel();
         gamePanel = new GamePanel();

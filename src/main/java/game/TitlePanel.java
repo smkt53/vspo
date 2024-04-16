@@ -58,6 +58,7 @@ public class TitlePanel extends JPanel implements MouseListener{
         Font ftl1 = textlabel1.getFont();
         textlabel1.setFont(new Font(ftl1.getName(), ftl1.getStyle(), 60));
         textlabel1.setBounds(300, 250, 600, 80);
+        textlabel1.addMouseListener(this);
         label1.setIcon(tests3);
         label1.setBounds(300, 250, 600, 80);
         this.add(label1);

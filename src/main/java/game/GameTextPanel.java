@@ -8,7 +8,8 @@ public class GameTextPanel extends JPanel implements MouseListener{
     private static final long serialVersionUID = 1L;
 
     private int panelAlpha = 0;
-    private JLabel textLabel;
+    public JLabel textLabel;
+    public JLabel nameLable;
 
     //ゲームテキストパネルの設定
     GameTextPanel(){
@@ -20,9 +21,16 @@ public class GameTextPanel extends JPanel implements MouseListener{
 
     public void prepareComponents(){
         textLabel = new JLabel();
-        textLabel.setBounds(100, 100, 1620, 340);
-        textLabel.setFont(new Font("Arial", Font.PLAIN, 30));
+        textLabel.setBounds(100, -20, 1620, 340);
+        textLabel.setFont(new Font("ＭＳ 明朝", Font.BOLD, Main.textSize * 10));
+        textLabel.setForeground(Color.WHITE);
         add(textLabel);
+
+        nameLable = new JLabel();
+        nameLable.setBounds(125, -125, 1620, 340);
+        nameLable.setFont(new Font("ＭＳ 明朝", Font.BOLD, Main.textSize * 10));
+        nameLable.setForeground(Color.WHITE);
+        add(nameLable);
     }
 
     //アニメーションの設定、アルファ値を設定してテキストを貼るパネルをフェードインする。fadeIn.start()でアニメーションを開始 別クラスから実行する場合はMain.mainWindow.gameTextPanel.fadeIn.start()で実行
@@ -44,14 +52,14 @@ public class GameTextPanel extends JPanel implements MouseListener{
     Timer fadeOut = new Timer(0, new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e){
-            if(panelAlpha < 10){
+            if(panelAlpha < 20){
                 System.out.println("stop timer");
-                panelAlpha = 5;
+                panelAlpha = 10;
                 repaint();
                 revalidate();
                 fadeOut.stop();
             }
-            panelAlpha -= 5;
+            panelAlpha -=10;
             repaint();
             revalidate();
         }
@@ -73,9 +81,10 @@ public class GameTextPanel extends JPanel implements MouseListener{
 
     @Override
     public void mouseClicked(MouseEvent e){
-        fadeIn.start();
-        textLabel.setText(Data.text);
-
+        Data.setText();
+        textLabel.setText(Data.textBox);
+        nameLable.setText(Data.nameBox);
+        repaint();
     }
 
     @Override

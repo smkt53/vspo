@@ -8,8 +8,9 @@ import java.awt.event.*;
 public class GamePanel extends JPanel implements MouseListener, KeyListener{
     private static final long serialVersionUID = 1L;
 
-    private JLabel menuLabel;
-    private JLabel backLabel;
+    public JLabel menuLabel;
+    public JLabel backLabel;
+    public JLabel charaLabel;
 
     //背景画像を取得してサイズを変更
     ImageIcon backImageBefore = new ImageIcon("./station.png");
@@ -83,7 +84,9 @@ public class GamePanel extends JPanel implements MouseListener, KeyListener{
             //メニューアイコンがクリックされたらメニューアクションを実行
             menuAction();
         }else{
-
+            Data.setText();
+            Main.mainWindow.gameTextPanel.textLabel.setText(Data.textBox);
+            Main.mainWindow.gameTextPanel.nameLable.setText(Data.nameBox);
         }
     }
 
