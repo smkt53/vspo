@@ -25,10 +25,6 @@ public class TitlePanel extends JPanel implements MouseListener{
 
     @Override
     public void paintComponent(Graphics g){
-        super.paintComponent(g);
-        g.setColor(Color.BLACK);
-        g.setFont(new Font("Arial", Font.ROMAN_BASELINE, 20));
-        g.drawString("START", 10, 10);
     }
 
     public void preapreComponents(){
@@ -37,11 +33,11 @@ public class TitlePanel extends JPanel implements MouseListener{
         //テスト実装.
         //画像を取得してサイズを変更
         //背景画像
-        ImageIcon test3 = new ImageIcon("./test3.png");
+        ImageIcon test3 = new ImageIcon("./data/test3.png");
         Image res = test3.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
         ImageIcon tests3 = new ImageIcon(res);
         //アイコン画像
-        ImageIcon emas = new ImageIcon("./emas.png");
+        ImageIcon emas = new ImageIcon("./data/emas.png");
         Image resemas = emas.getImage().getScaledInstance(1920, 1080, Image.SCALE_SMOOTH);
         ImageIcon emass = new ImageIcon(resemas);
 
@@ -119,7 +115,7 @@ public class TitlePanel extends JPanel implements MouseListener{
 
         if(e.getSource() == textlabel3){
             //三枚目のラベルをクリックした場合、設定画面に遷移
-            Main.str = "TITLE";
+            Main.sceneStr = "TITLE";
             Main.mainWindow.setFrontScreenAndFocus(Main.Scene.SETTING);
         }
 

@@ -13,12 +13,12 @@ public class GamePanel extends JPanel implements MouseListener, KeyListener{
     public JLabel charaLabel;
 
     //背景画像を取得してサイズを変更
-    ImageIcon backImageBefore = new ImageIcon("./station.png");
+    ImageIcon backImageBefore = new ImageIcon("./data/station.png");
     Image res = backImageBefore.getImage().getScaledInstance(1920, 1080, Image.SCALE_SMOOTH);
     ImageIcon backImage = new ImageIcon(res);
 
     //メニューアイコン
-    ImageIcon menuIcon = new ImageIcon("./menu.png");
+    ImageIcon menuIcon = new ImageIcon("./data/menu.png");
 
 
     public GamePanel() {
@@ -58,6 +58,46 @@ public class GamePanel extends JPanel implements MouseListener, KeyListener{
             e.printStackTrace();
         }
         Main.mainWindow.menuPanel.setVisible(!Main.mainWindow.menuPanel.isVisible());
+        if(Main.mainWindow.menuPanel.isVisible()){
+            Main.mainWindow.menuPanel.requestFocus();
+        }
+    }
+
+    public void goNextScenario() {
+        Data.rowNum++;
+        try {
+            if(Main.mainWindow.gameTextPanel.textAnimation.isRunning()){
+                Main.mainWindow.gameTextPanel.textAnimation.stop();
+                Main.mainWindow.gameTextPanel.textLabel.setText(Data.textBox);
+            }else{
+                Main.mainWindow.gameTextPanel.textNum = 0;
+                Data.setExcel();
+                Data.getTextBox();
+                Main.mainWindow.gameTextPanel.textBaseBox = "";
+                Main.mainWindow.gameTextPanel.textAnimation.start();
+                Main.mainWindow.gameTextPanel.nameLable.setText(Data.nameBox);
+            }
+            //テキストボックスが空である
+            if(Data.textBox == ""){
+                //パネルが表示されている
+                if(Main.mainWindow.gameTextPanel.textPanelFadeBoolean == true){
+                    //パネルをフェードアウトさせる
+                    Main.mainWindow.gameTextPanel.textLabel.setText("");
+                    Main.mainWindow.gameTextPanel.repaint();
+                    Main.mainWindow.gameTextPanel.textPanelFade();
+                }
+            //テキストボックスに文字が入っている
+            }else{
+                //パネルが表示されている
+                if(Main.mainWindow.gameTextPanel.textPanelFadeBoolean == false){
+                    //パネルをフェードインさせる
+                    Main.mainWindow.gameTextPanel.textPanelFade();
+                }
+            }
+            Main.mainWindow.gameTextPanel.repaint();
+        } catch (Exception ex) {
+            System.out.println("error at \"goNextScenario\"");
+        }
     }
 
     @Override
@@ -84,9 +124,7 @@ public class GamePanel extends JPanel implements MouseListener, KeyListener{
             //メニューアイコンがクリックされたらメニューアクションを実行
             menuAction();
         }else{
-            Data.setText();
-            Main.mainWindow.gameTextPanel.textLabel.setText(Data.textBox);
-            Main.mainWindow.gameTextPanel.nameLable.setText(Data.nameBox);
+            goNextScenario();
         }
     }
 

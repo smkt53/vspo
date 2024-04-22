@@ -71,13 +71,14 @@ public class MenuPanel extends JPanel implements MouseListener{
     public void mouseClicked(MouseEvent e) {
         if(e.getSource() == settingLabel){
             System.out.println("setting");
-            Main.str = "GAME";
+            Main.sceneStr = "GAME";
             Main.mainWindow.setFrontScreenAndFocus(Main.Scene.SETTING);
         }
         if(e.getSource() == saveLabel){
             System.out.println("save");
         }
         if(e.getSource() == loadLabel){
+            //Main.mainWindow.gameTextPanel.test();
             System.out.println("load");
         }
         if(e.getSource() == returnLabel){

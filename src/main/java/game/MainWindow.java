@@ -20,6 +20,7 @@ public class MainWindow extends JFrame{
     GamePanel gamePanel;
     MenuPanel menuPanel;
     GameTextPanel gameTextPanel;
+    GameTextPanel sampleGameTextPanel;
 
     static CardLayout layout = new CardLayout();
 
@@ -28,7 +29,7 @@ public class MainWindow extends JFrame{
         setLayout(layout);
         setTitle(title);
         setSize(WIDTH, HEIGHT);
-        ImageIcon icon = new ImageIcon("icon.png");
+        ImageIcon icon = new ImageIcon("./data/icon.png");
         setIconImage(icon.getImage());
         setUndecorated(true);
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -47,6 +48,7 @@ public class MainWindow extends JFrame{
         gamePanel = new GamePanel();
         menuPanel = new MenuPanel();
         gameTextPanel = new GameTextPanel();
+        sampleGameTextPanel = new GameTextPanel();
         this.add(titlePanel, "title");
         this.add(settingPanel, "setting");
         this.add(gamePanel, "game");
@@ -59,6 +61,7 @@ public class MainWindow extends JFrame{
         gamePanel.prepareComponents();
         settingPanel.prepareComponents();
         gameTextPanel.prepareComponents();
+        sampleGameTextPanel.prepareComponents();
     }
 
     //指定したシーンを表示し、フォーカスを設定
