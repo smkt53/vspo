@@ -2,11 +2,9 @@ package game;
 
 import java.io.File;
 
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import org.apache.poi.poifs.crypt.*;
 
 public class Data  {
     
@@ -30,7 +28,12 @@ public class Data  {
     public static Cell cell;
 
     public static void setExcel() throws Exception{
-        Workbook excel = WorkbookFactory.create(new File("./data/Scenario.xlsx"));
+        String password = "password";
+        POIFSFileSystem fs = new POIFSFileSystem(new File("./data/Scenario.xlsx"));
+        EncryptionInfo info = new EncryptionInfo(fs);
+        Decryptor d = Decryptor.getInstance(info);
+        d.verifyPassword(password);
+        Workbook excel = WorkbookFactory.create(d.getDataStream(fs));
         MainScenario = excel.getSheet("MainScenario");
         //SubScenario = excel.getSheet("SubScenario");
     }
